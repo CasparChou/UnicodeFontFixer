@@ -1,8 +1,9 @@
 package unicodefontfixer;
 
+import java.io.IOException;
 import java.util.Map;
 
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiLanguage;
@@ -14,7 +15,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class GuiLanguageEx extends GuiLanguage {
 	
@@ -50,7 +51,7 @@ public class GuiLanguageEx extends GuiLanguage {
 		for (int i = 0; i < this.buttonList.size(); i++)
 			((GuiButton)this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
 		for (int i = 0; i < this.labelList.size(); i++)
-			((GuiLabel)this.labelList.get(i)).func_146159_a(this.mc, mouseX, mouseY);
+			((GuiLabel)this.labelList.get(i)).drawLabel(this.mc, mouseX, mouseY);
 	}
 	
 	@Override
@@ -70,14 +71,19 @@ public class GuiLanguageEx extends GuiLanguage {
 			}
 			cm.update();
 		} else {
-			super.actionPerformed(btn);
+			try {
+				super.actionPerformed(btn);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	private void updateButtonText() {
 		btnFixFont.displayString =
-				StatCollector.translateToLocal("options.unicodefontfixer.fixDerpyFont") + ": " +
-				StatCollector.translateToLocal("options.unicodefontfixer.fixDerpyFont." + UnicodeFontFixer.instance.configManager.fixDerpyFont.getString());
+				new TextComponentTranslation("options.unicodefontfixer.fixDerpyFont") + ": " +
+				new TextComponentTranslation("options.unicodefontfixer.fixDerpyFont." + UnicodeFontFixer.instance.configManager.fixDerpyFont.getString());
 	}
 
 }

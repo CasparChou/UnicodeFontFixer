@@ -2,7 +2,7 @@ package unicodefontfixer.mods;
 
 import java.util.HashMap;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import unicodefontfixer.RenderingAdapter;
 import unicodefontfixer.RenderingText;
 
@@ -18,7 +18,7 @@ public class Botania implements ModHandler {
 		RenderingAdapter removeBold = new RenderingAdapter() {
 			@Override
 			public Double adjust(RenderingText text) {
-				text.string = text.string.replace(EnumChatFormatting.BOLD.toString(), "");
+				text.string = text.string.replace(TextFormatting.BOLD.toString(), "");
 				return super.adjust(text);
 			}
 		};

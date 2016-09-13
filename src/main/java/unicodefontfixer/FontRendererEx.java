@@ -19,8 +19,8 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
 import unicodefontfixer.mods.*;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FontRendererEx extends FontRenderer {
 	
@@ -104,12 +104,10 @@ public class FontRendererEx extends FontRenderer {
 		return drawStringChecked(new RenderingText(string, x, y, color, false));
     }
 	
-	@Override
 	public int drawStringWithShadow(String string, int x, int y, int color){
 		return drawStringChecked(new RenderingText(string, x, y, color, true));
     }
 	
-	@Override
 	public int drawString(String string, int x, int y, int color, boolean dropShadow) {
 		return drawStringChecked(new RenderingText(string, x, y, color, dropShadow));
     }

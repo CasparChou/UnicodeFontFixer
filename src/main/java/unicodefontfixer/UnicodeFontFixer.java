@@ -15,16 +15,16 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = UnicodeFontFixer.MODID, useMetadata = true)
 public class UnicodeFontFixer {
@@ -55,7 +55,7 @@ public class UnicodeFontFixer {
 		Minecraft mc = Minecraft.getMinecraft();
 		fontRendererStandard = new FontRendererEx(mc.gameSettings, new ResourceLocation("textures/font/ascii.png"), mc.renderEngine, false);
 		fontRendererGalactic = new FontRendererEx(mc.gameSettings, new ResourceLocation("textures/font/ascii_sga.png"), mc.renderEngine, false);
-		mc.fontRenderer = setDelegate(mc.fontRenderer, fontRendererStandard);
+		mc.fontRendererObj = setDelegate(mc.fontRendererObj, fontRendererStandard);
 		mc.standardGalacticFontRenderer = setDelegate(mc.standardGalacticFontRenderer, fontRendererGalactic);
 	}
 	
@@ -72,11 +72,11 @@ public class UnicodeFontFixer {
 	public void onGuiOpen(GuiOpenEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		FontRendererEx.checkingStackDepth = true;
-		mc.fontRenderer.drawString("", 0, 0, 0);
+		mc.fontRendererObj.drawString("", 0, 0, 0);
 		mc.standardGalacticFontRenderer.drawString("", 0, 0, 0);
 		FontRendererEx.checkingStackDepth = false;
-		if (event.gui instanceof GuiLanguage)
-			event.gui = new GuiLanguageEx((GuiLanguage)event.gui);
+		if (event.getGui() instanceof GuiLanguage)
+			event.setGui( new GuiLanguageEx((GuiLanguage)event.getGui()) );
 	}
 	
 }

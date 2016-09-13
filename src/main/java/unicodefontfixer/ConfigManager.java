@@ -4,11 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 import unicodefontfixer.mods.*;
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
@@ -44,19 +43,19 @@ public class ConfigManager {
 	
 	@SubscribeEvent
 	public void onConfigurationChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-		if (event.modID.equals(UnicodeFontFixer.MODID)) update();
+		if (event.getModID().equals(UnicodeFontFixer.MODID)) update();
 	}
 	
 	public void reload() {
 		file.load();
 		blacklist = file.get("general", "blacklist", new String[] {"Example Mod", "ExampleCraft|Factory"});
-		blacklist.comment = StatCollector.translateToLocal("config.unicodefontfixer.blacklist");
+		blacklist.setComment((new TextComponentTranslation("config.unicodefontfixer.blacklist")).getFormattedText());
 		fixDerpyFont = file.get("general", "fixDerpyFont", "always");
-		fixDerpyFont.comment = StatCollector.translateToLocal("config.unicodefontfixer.fixDerpyFont");
-		fixDerpyFont.comment += "\n  disabled: " + StatCollector.translateToLocal("config.unicodefontfixer.fixDerpyFont.disabled");
-		fixDerpyFont.comment += "\n  always: " + StatCollector.translateToLocal("config.unicodefontfixer.fixDerpyFont.always");
-		fixDerpyFont.comment += "\n  moderate: " + StatCollector.translateToLocal("config.unicodefontfixer.fixDerpyFont.moderate");
-		fixDerpyFont.comment += "\n" + StatCollector.translateToLocal("config.unicodefontfixer.fixDerpyFont.hint");
+		fixDerpyFont.setComment((new TextComponentTranslation("config.unicodefontfixer.fixDerpyFont").getFormattedText()));
+		fixDerpyFont.setComment(fixDerpyFont.getComment()+"\n  disabled: " + new TextComponentTranslation("config.unicodefontfixer.fixDerpyFont.disabled").getFormattedText());
+		fixDerpyFont.setComment(fixDerpyFont.getComment()+"\n  always: " + new TextComponentTranslation("config.unicodefontfixer.fixDerpyFont.always").getFormattedText());
+		fixDerpyFont.setComment(fixDerpyFont.getComment()+"\n  moderate: " + new TextComponentTranslation("config.unicodefontfixer.fixDerpyFont.moderate").getFormattedText());
+		fixDerpyFont.setComment(fixDerpyFont.getComment()+"\n" + new TextComponentTranslation("config.unicodefontfixer.fixDerpyFont.hint").getFormattedText());
 		update();
 	}
 	
