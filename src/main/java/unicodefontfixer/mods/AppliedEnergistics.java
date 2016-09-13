@@ -4,7 +4,7 @@ import java.nio.FloatBuffer;
 import java.util.HashMap;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -40,9 +40,9 @@ public class AppliedEnergistics implements ModHandler {
 			@Override
 			public Double adjust(RenderingText text) {
 				Double ratio = super.adjust(text);
-				if (text.string.startsWith(StatCollector.translateToLocal("gui.appliedenergistics2.FromStorage"))) {
+				if (text.string.startsWith(new TextComponentTranslation("gui.appliedenergistics2.FromStorage").getUnformattedText())) {
 					GL11.glTranslatef(-20, -1, 0);
-				} else if (text.string.startsWith(StatCollector.translateToLocal("gui.appliedenergistics2.Missing"))) {
+				} else if (text.string.startsWith(new TextComponentTranslation("gui.appliedenergistics2.Missing").getUnformattedText())) {
 					GL11.glTranslatef(-20, +1, 0);
 				} else {
 					GL11.glTranslatef(-20, +3, 0);

@@ -45,7 +45,7 @@ public class Thaumcraft implements ModHandler {
 				GL11.glScaled(1 / ratio, 1 / ratio, 1.0);
 				GL11.glTranslated(Math.round(text.x * (ratio - 1) * 2 + 1) / 2, Math.round((text.y + 6) * (ratio - 1) * 2) / 2, 0);
 				if (inGUI) {
-					FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+					FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
 					for (int i = -1; i <= 1; i++)
 					for (int j = -1; j <= 1; j++) {
 						if ((i == 0 || j == 0) && (i != 0 || j != 0)) {
